@@ -5,7 +5,7 @@
 // 功  能：涂鸦魔法棒
 // ----------------------------------------
 
-#include <debug.h>
+#include "debug.h"
 #include <FastLED.h>
 #include "WS2812.h"
 #include "tuyaDefination.h"
@@ -28,11 +28,11 @@ void setup()
     Serial.begin(9600);
 
     tuya_setup(pid, mcu_ver, WIFI_RECONNECT_BUTTON_PIN, WIFI_LED);
-    initWS2812();
+//    initWS2812();
 }
 
 void loop()
 {
     tuya_loop();
-    updateWS2812();
+//    updateWS2812();
 }

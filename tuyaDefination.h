@@ -8,6 +8,8 @@
 #ifndef _TUYA_DEFINATION_H_
 #define _TUYA_DEFINATION_H_
 
+#include <arduino.h>
+
 // ----------------------------------------
 // DP 点定义
 
@@ -18,7 +20,7 @@
 // ----------------------------------------
 // 功能函数
 void tuya_setup(unsigned char *pid, unsigned char *mcu_ver, uint8_t wifi_reconnect_pin, uint8_t wifi_led_pin);
-inline void tuya_loop();
+void tuya_loop();
 // unsigned char dp_process(unsigned char dpid, const unsigned char value[], unsigned short length);
 // void dp_update_all(void);
 // void init_wifi();

@@ -18,6 +18,7 @@
     #define DEBUG_OUT(x)    debugSerial.print(x);
     #define DEBUG_OUT_LN(x) debugSerial.println(x);
 #else
+    #define DEBUG_INIT(x)
     #define DEBUG_OUT(x)
     #define DEBUG_OUT_LN(x)
 #endif

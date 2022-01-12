@@ -7,6 +7,8 @@
 
 #include "tuyaDefination.h"
 #include <TuyaWifi.h>
+#include "debug.h"
+#include "WS2812.h"
 
 // wifi 相关功能变量    
 TuyaWifi tuya_device;
@@ -27,25 +29,6 @@ unsigned char dp_string_value[21] = {"0"};
 unsigned char dp_array[][2] = {
     {DPID_SWITCH_LED, DP_TYPE_BOOL},
 };
-
-void tuya_setup(unsigned char *pid, unsigned char *mcu_ver, uint8_t wifi_reconnect_pin, uint8_t wifi_led_pin)
-{
-    reconnect_button = wifi_reconnect_pin;
-    wifi_led = wifi_led_pin;
-
-    init_wifi();
-
-    tuya_device.init(pid, mcu_ver);
-    tuya_device.set_dp_cmd_total(dp_array, sizeof(dp_array) / sizeof(dp_array[0]));
-    tuya_device.dp_process_func_register(dp_process);         // register DP download processing callback function
-    tuya_device.dp_update_all_func_register(dp_update_all);   // register upload all DP callback function
-}
-
-inline void tuya_loop()
-{
-    check_reconnect_wifi();
-    tuya_device.uart_service();
-}
 
 void init_wifi()
 {
@@ -112,12 +95,12 @@ unsigned char dp_process(unsigned char dpid, const unsigned char value[], unsign
         if (dp_bool_value)
         {
             //Turn on
-            turnOnCube2812();
+            turnOnWS2812();
         }
         else
         {
             //Turn off
-            turnOffCube2812();
+            turnOffWS2812();
         }
 
         //Status changes should be reported.
@@ -137,4 +120,23 @@ unsigned char dp_process(unsigned char dpid, const unsigned char value[], unsign
  */
 void dp_update_all(void)
 {
+}
+
+void tuya_setup(unsigned char *pid, unsigned char *mcu_ver, uint8_t wifi_reconnect_pin, uint8_t wifi_led_pin)
+{
+    reconnect_button = wifi_reconnect_pin;
+    wifi_led = wifi_led_pin;
+
+    init_wifi();
+
+    tuya_device.init(pid, mcu_ver);
+    tuya_device.set_dp_cmd_total(dp_array, sizeof(dp_array) / sizeof(dp_array[0]));
+    tuya_device.dp_process_func_register(dp_process);         // register DP download processing callback function
+    tuya_device.dp_update_all_func_register(dp_update_all);   // register upload all DP callback function
+}
+
+void tuya_loop()
+{
+    check_reconnect_wifi();
+    tuya_device.uart_service();
 }

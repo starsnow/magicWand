@@ -3,16 +3,8 @@
 // 2812 立方体的实现文件
 
 #include <arduino.h>
-#include "cube2812.h"
-#include "rainbowMode.h"
-#include "colourfulDreamMode.h"
-#include "starSkyMode.h"
-#include "rainMode.h"
-#include "hackerMatrixMode.h"
-#include "bubbleMode.h"
-#include "energyCubeMode.h"
-#include "snowMode.h"
-#include "snakeGameMode.h"
+#include "WS2812.h"
+#if 0
 
 // FastLED 的 LED 数据
 // 内存不够用，只用三个面
@@ -197,12 +189,14 @@ inline uint16_t XY(uint8_t x, uint8_t y, uint8_t dir = CW0)
     return 0;
 }
 
-void turnOnCube2812()
+#endif
+
+void turnOnWS2812()
 {
-    setRenderMode(lastModeName);
+//    setRenderMode(lastModeName);
 }
 
-void turnOffCube2812()
+void turnOffWS2812()
 {
-    setRenderMode(EMPTY);
+//    setRenderMode(EMPTY);
 }

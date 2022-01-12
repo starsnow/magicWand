@@ -60,6 +60,9 @@ public:
     }
 };
 
+void turnOnWS2812();
+void turnOffWS2812();
+/*
 void initWS2812();
 void updateWS2812();
 void turnOnWS2812();
@@ -67,5 +70,6 @@ void turnOffWS2812();
 void randomDot(CRGB pLeds[], const CRGB color);
 void setRenderMode(enum RENDER_MODE mode);
 void inputDir(uint8_t dir);
+*/
 
 #endif
