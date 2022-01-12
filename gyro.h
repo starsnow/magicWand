@@ -10,7 +10,7 @@
 
 #include <MPU6050.h>
 
-class gyro
+class Gyro
 {
 private:
     int xSpeed;

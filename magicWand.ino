@@ -1,3 +1,10 @@
+// ----------------------------------------
+// magicWand.ino
+// 创建者：seesea <seesea2517#gmail#com>
+// 时  间：2022-01-12
+// 功  能：涂鸦魔法棒
+// ----------------------------------------
+
 #include <debug.h>
 #include <FastLED.h>
 #include "WS2812.h"

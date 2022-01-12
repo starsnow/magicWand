@@ -1,9 +1,19 @@
-// 涂鸦功能相关的函数定义
+// ----------------------------------------
+// tuyaFunction.cpp
+// 创建者：seesea <seesea2517#gmail#com>
+// 时  间：2022-01-12
+// 功  能：涂鸦功能相关的功能实现
+// ----------------------------------------
 
 #include "tuyaDefination.h"
 #include <TuyaWifi.h>
 
-///* Current device DP values */
+// wifi 相关功能变量    
+TuyaWifi tuya_device;
+uint8_t reconnect_button, wifi_led;
+
+
+//* Current device DP values */
 unsigned char dp_bool_value = 0;
 long dp_value_value = 0;
 unsigned char dp_enum_value = 0;
@@ -17,9 +27,6 @@ unsigned char dp_string_value[21] = {"0"};
 unsigned char dp_array[][2] = {
     {DPID_SWITCH_LED, DP_TYPE_BOOL},
 };
-
-uint8_t reconnect_button, wifi_led;
-TuyaWifi tuya_device;
 
 void tuya_setup(unsigned char *pid, unsigned char *mcu_ver, uint8_t wifi_reconnect_pin, uint8_t wifi_led_pin)
 {
