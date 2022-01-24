@@ -10,7 +10,7 @@
 #include "debug.h"
 
 // wifi 相关功能变量    
-TuyaWifi tuya_device;
+TuyaWifi tuya_device(&Serial1);
 uint8_t reconnect_button, wifi_led;
 
 
@@ -26,7 +26,7 @@ unsigned char dp_string_value[21] = {"0"};
  *                                     dp type(TuyaDefs.h) : DP_TYPE_RAW, DP_TYPE_BOOL, DP_TYPE_VALUE, DP_TYPE_STRING, DP_TYPE_ENUM, DP_TYPE_BITMAP
 */
 unsigned char dp_array[][2] = {
-    {DPID_SWITCH_LED, DP_TYPE_BOOL},
+    {DPID_GESTURE, DP_TYPE_ENUM},
 };
 
 void init_wifi()
@@ -89,17 +89,7 @@ unsigned char dp_process(unsigned char dpid, const unsigned char value[], unsign
 
     switch (dpid)
     {
-    case DPID_SWITCH_LED:
-        dp_bool_value = tuya_device.mcu_get_dp_download_data(dpid, value, length); /* Get the value of the down DP command */
-        if (dp_bool_value)
-        {
-            //Turn on
-        }
-        else
-        {
-            //Turn off
-        }
-
+    case DPID_GESTURE:
         //Status changes should be reported.
         tuya_device.mcu_dp_update(dpid, value, length);
         break;
@@ -117,6 +107,7 @@ unsigned char dp_process(unsigned char dpid, const unsigned char value[], unsign
  */
 void dp_update_all(void)
 {
+    tuya_device.mcu_dp_update(DPID_GESTURE, 4, DP_TYPE_ENUM);
 }
 
 void tuya_setup(unsigned char *pid, unsigned char *mcu_ver, uint8_t wifi_reconnect_pin, uint8_t wifi_led_pin)
@@ -141,4 +132,12 @@ void tuya_loop()
 {
     check_reconnect_wifi();
     tuya_device.uart_service();
+}
+
+// gesture: 
+// 上 下 左 右 无
+//  0  1  2  3  4 
+void upload_gesture_value(uint8_t gesture)
+{
+    tuya_device.mcu_dp_update(DPID_GESTURE, gesture, DP_TYPE_ENUM);
 }

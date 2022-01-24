@@ -13,9 +13,9 @@
 // ----------------------------------------
 // DP 点定义
 
-//开关(可下发可上报)
+//手势(只上报)
 //备注:
-#define DPID_SWITCH_LED 20
+#define DPID_GESTURE 101
 
 // ----------------------------------------
 // 功能函数
@@ -25,5 +25,5 @@ void tuya_loop();
 // void dp_update_all(void);
 // void init_wifi();
 // void check_reconnect_wifi();
-
+void upload_gesture_value(uint8_t gesture);
 #endif

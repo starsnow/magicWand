@@ -34,10 +34,10 @@ void MagicWand::init()
     gyro->init();
     gesture->init(gyro);
     gesture->setDirection(GravityGesture::AXIS_Z, GravityGesture::AXIS_MINUS_Y, GravityGesture::AXIS_MINUS_X);
-    states->init();
-    states->switchState((BaseState *) states->sleeping);
     strip->init(48, 50);
     strip->setRenderMode(WS2812Strip::BREATHING_MODE);
+    states->init();
+    states->switchState((BaseState *) states->sleeping);
 }
 
 void MagicWand::update()
