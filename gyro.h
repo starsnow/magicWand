@@ -13,8 +13,9 @@
 class Gyro
 {
 private:
-    int xSpeed;
-    int ySpeed;
+    int xAcc;
+    int yAcc;
+    int zAcc;
     int scale;
     MPU6050 accelgyro;
     int16_t ax, ay, az;
@@ -22,7 +23,7 @@ private:
     bool status;
 
 public:
-    WindSystem()
+    Gyro()
     {
         status = false;
     }
@@ -34,25 +35,46 @@ public:
         status = accelgyro.testConnection() ? true : false;
         accelgyro.getAcceleration(&offsetX, &offsetY, &offsetZ);
         this->scale = scale;
+        // Serial.print("offset x: ");
+        // Serial.println(offsetX);
+        // Serial.print("offset y: ");
+        // Serial.println(offsetY);
+        // Serial.print("offset z: ");
+        // Serial.println(offsetZ);
     }
 
     void update()
     {
         accelgyro.getAcceleration(&ax, &ay, &az);
-        xSpeed = (ax - offsetX) / scale;
-        ySpeed = (az - offsetZ) / scale;
+        xAcc = (ax - offsetX) / scale;
+        yAcc = (ay - offsetY) / scale;
+        zAcc = (az - offsetZ) / scale;
     }
 
-    int getXSpeed()
+    int getXAcc()
     {
-        return xSpeed;
+        return xAcc;
     }
 
-    int getYSpeed()
+    int getYAcc()
     {
-        return ySpeed;
+        return yAcc;
     }
 
+    int getZAcc()
+    {
+        return zAcc;
+    }
+
+    bool isMoving(unsigned int threshold)
+    {
+        if (abs(xAcc) >= threshold || abs(yAcc) >= threshold || abs(zAcc) >= threshold)
+        {
+            return true;
+        }
+        
+        return false;
+    }
 };
 
 #endif

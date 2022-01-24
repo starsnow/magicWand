@@ -8,7 +8,6 @@
 #include "tuyaDefination.h"
 #include <TuyaWifi.h>
 #include "debug.h"
-#include "WS2812.h"
 
 // wifi 相关功能变量    
 TuyaWifi tuya_device;
@@ -86,7 +85,7 @@ void check_reconnect_wifi()
 unsigned char dp_process(unsigned char dpid, const unsigned char value[], unsigned short length)
 {
     DEBUG_OUT(F("dpid: "));
-    DEBUG_OUT_LN(dpid);
+    DEBUG_OUTLN(dpid);
 
     switch (dpid)
     {
@@ -95,12 +94,10 @@ unsigned char dp_process(unsigned char dpid, const unsigned char value[], unsign
         if (dp_bool_value)
         {
             //Turn on
-            turnOnWS2812();
         }
         else
         {
             //Turn off
-            turnOffWS2812();
         }
 
         //Status changes should be reported.
@@ -124,6 +121,11 @@ void dp_update_all(void)
 
 void tuya_setup(unsigned char *pid, unsigned char *mcu_ver, uint8_t wifi_reconnect_pin, uint8_t wifi_led_pin)
 {
+    DEBUG_OUT(F("WIFI_UART_RECV_BUF_LMT: "));
+    DEBUG_OUTLN(WIFI_UART_RECV_BUF_LMT);
+    DEBUG_OUT(F("WIFI_DATA_PROCESS_LMT: "));
+    DEBUG_OUTLN(WIFI_DATA_PROCESS_LMT);
+    
     reconnect_button = wifi_reconnect_pin;
     wifi_led = wifi_led_pin;
 
