@@ -5,12 +5,12 @@
 // 功  能：涂鸦魔法棒
 // ----------------------------------------
 
-#include "debug.h"
 #include <FastLED.h>
-#include "tuyaDefination.h"
-#include "MagicWand.h"
-#include "States.h"
-#include "WS2812Strip.h"
+#include "src/debug.h"
+#include "src/tuya/tuyaDefination.h"
+#include "src/MagicWand.h"
+#include "src/state/States.h"
+#include "src/WS2812Strip/WS2812Strip.h"
 
 MagicWand *wand;
 
@@ -24,7 +24,7 @@ void setup()
 {
     DEBUG_INIT(9600);
 
-#ifdef ARDUINO_AVR_MICRO
+#if (defined ARDUINO_AVR_MICRO) || (defined ARDUINO_AVR_LEONARDO)
     Serial1.begin(9600);
 #else
     Serial.begin(9600);
